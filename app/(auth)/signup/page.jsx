@@ -44,7 +44,6 @@ export default function Page({ }) {
             email: signup.email,
             password: signup.password,
          });
-         console.log("here2");
 
          if (loginResponse.ok) {
             router.push("/");
@@ -62,18 +61,18 @@ export default function Page({ }) {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-4/5">
          <Input
+            name="name"
+            label="Name"
+            type="text"
+            onChange={handleChange}
+         />
+
+         <Input
             name="email"
             label="Email"
             type="email"
             onChange={handleChange}
             required
-         />
-
-         <Input
-            name="name"
-            label="Name"
-            type="text"
-            onChange={handleChange}
          />
 
          <Input
