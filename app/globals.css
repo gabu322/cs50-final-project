@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-   @apply bg-blue-50 text-slate-800;
+   @apply text-slate-800;
    color: rgb(var(--foreground-rgb));
    background: bg-gray-100;
    line-height: 1;
