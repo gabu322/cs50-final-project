@@ -116,7 +116,7 @@ export default function Select({
       <input
          id={id || name}
          name={name}
-         className={`outline-none w-full ${sizes.inputMargin}`}
+         className={`outline-none w-11/12 ${sizes.inputMargin}`}
          type="text"
          value={value}
          onChange={handleInputChange}
