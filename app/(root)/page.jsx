@@ -2,15 +2,11 @@
 
 import Button from "@/components/Button";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 export default function Page() {
    const { data: session } = useSession();
 
-   // useEffect(() => {
-   //    console.log(session)
-   // }, [session]);
-   return <div className="w-3/4 mx-auto mt-10 flex flex-col gap-8 ">
+   return <div className="middle-section">
       <h1 className="text-4xl font-bold">Welcome {session?.user.name || session?.user.email.split("@")[0]}!</h1>
 
       <h4>Here you can see your saved recipies or the ones shared by the comunity!</h4>
