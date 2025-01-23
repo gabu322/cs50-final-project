@@ -5,7 +5,7 @@ const bgColors = {
    red: { bg: "bg-red-500", hover: "hover:bg-red-600" },
    green: { bg: "bg-green-600", hover: "hover:bg-green-700" },
    yellow: { bg: "bg-yellow-300", hover: "hover:bg-yellow-400" },
-   orange: { bg: "bg-orange-300", hover: "hover:bg-orange-400" },
+   orange: { bg: "bg-orange-400", hover: "hover:bg-orange-500" },
    black: { bg: "bg-black", hover: "hover:bg-gray-800" }
 }
 
