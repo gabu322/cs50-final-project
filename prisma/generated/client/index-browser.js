@@ -127,6 +127,7 @@ exports.Prisma.RecipeScalarFieldEnum = {
   description: 'description',
   image: 'image',
   userId: 'userId',
+  prepTime: 'prepTime',
   private: 'private'
 };
 
@@ -145,6 +146,14 @@ exports.Prisma.InstructionScalarFieldEnum = {
   recipeId: 'recipeId'
 };
 
+exports.Prisma.RatingScalarFieldEnum = {
+  userId: 'userId',
+  recipeId: 'recipeId',
+  stars: 'stars',
+  liked: 'liked',
+  saved: 'saved'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -160,7 +169,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Recipe: 'Recipe',
   Ingredient: 'Ingredient',
-  Instruction: 'Instruction'
+  Instruction: 'Instruction',
+  Rating: 'Rating'
 };
 
 /**

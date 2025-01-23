@@ -33,6 +33,11 @@ export type Ingredient = $Result.DefaultSelection<Prisma.$IngredientPayload>
  * 
  */
 export type Instruction = $Result.DefaultSelection<Prisma.$InstructionPayload>
+/**
+ * Model Rating
+ * 
+ */
+export type Rating = $Result.DefaultSelection<Prisma.$RatingPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -198,6 +203,16 @@ export class PrismaClient<
     * ```
     */
   get instruction(): Prisma.InstructionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rating`: Exposes CRUD operations for the **Rating** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ratings
+    * const ratings = await prisma.rating.findMany()
+    * ```
+    */
+  get rating(): Prisma.RatingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -641,7 +656,8 @@ export namespace Prisma {
     User: 'User',
     Recipe: 'Recipe',
     Ingredient: 'Ingredient',
-    Instruction: 'Instruction'
+    Instruction: 'Instruction',
+    Rating: 'Rating'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -657,7 +673,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "recipe" | "ingredient" | "instruction"
+      modelProps: "user" | "recipe" | "ingredient" | "instruction" | "rating"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -957,6 +973,80 @@ export namespace Prisma {
           }
         }
       }
+      Rating: {
+        payload: Prisma.$RatingPayload<ExtArgs>
+        fields: Prisma.RatingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RatingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RatingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findFirst: {
+            args: Prisma.RatingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RatingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findMany: {
+            args: Prisma.RatingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          create: {
+            args: Prisma.RatingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          createMany: {
+            args: Prisma.RatingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RatingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          delete: {
+            args: Prisma.RatingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          update: {
+            args: Prisma.RatingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          deleteMany: {
+            args: Prisma.RatingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RatingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RatingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          upsert: {
+            args: Prisma.RatingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          aggregate: {
+            args: Prisma.RatingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRating>
+          }
+          groupBy: {
+            args: Prisma.RatingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RatingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RatingCountArgs<ExtArgs>
+            result: $Utils.Optional<RatingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1045,6 +1135,7 @@ export namespace Prisma {
     recipe?: RecipeOmit
     ingredient?: IngredientOmit
     instruction?: InstructionOmit
+    rating?: RatingOmit
   }
 
   /* Types for Logging */
@@ -1140,10 +1231,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     recipes: number
+    ratings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     recipes?: boolean | UserCountOutputTypeCountRecipesArgs
+    ratings?: boolean | UserCountOutputTypeCountRatingsArgs
   }
 
   // Custom InputTypes
@@ -1164,6 +1257,13 @@ export namespace Prisma {
     where?: RecipeWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+  }
+
 
   /**
    * Count Type RecipeCountOutputType
@@ -1172,11 +1272,13 @@ export namespace Prisma {
   export type RecipeCountOutputType = {
     ingredients: number
     instructions: number
+    ratings: number
   }
 
   export type RecipeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ingredients?: boolean | RecipeCountOutputTypeCountIngredientsArgs
     instructions?: boolean | RecipeCountOutputTypeCountInstructionsArgs
+    ratings?: boolean | RecipeCountOutputTypeCountRatingsArgs
   }
 
   // Custom InputTypes
@@ -1202,6 +1304,13 @@ export namespace Prisma {
    */
   export type RecipeCountOutputTypeCountInstructionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InstructionWhereInput
+  }
+
+  /**
+   * RecipeCountOutputType without action
+   */
+  export type RecipeCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
   }
 
 
@@ -1400,6 +1509,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     recipes?: boolean | User$recipesArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1427,6 +1537,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     recipes?: boolean | User$recipesArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1436,6 +1547,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       recipes: Prisma.$RecipePayload<ExtArgs>[]
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1837,6 +1949,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     recipes<T extends User$recipesArgs<ExtArgs> = {}>(args?: Subset<T, User$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    ratings<T extends User$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2268,6 +2381,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.ratings
+   */
+  export type User$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2301,11 +2438,13 @@ export namespace Prisma {
   export type RecipeAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    prepTime: number | null
   }
 
   export type RecipeSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    prepTime: number | null
   }
 
   export type RecipeMinAggregateOutputType = {
@@ -2314,6 +2453,7 @@ export namespace Prisma {
     description: string | null
     image: string | null
     userId: number | null
+    prepTime: number | null
     private: boolean | null
   }
 
@@ -2323,6 +2463,7 @@ export namespace Prisma {
     description: string | null
     image: string | null
     userId: number | null
+    prepTime: number | null
     private: boolean | null
   }
 
@@ -2332,6 +2473,7 @@ export namespace Prisma {
     description: number
     image: number
     userId: number
+    prepTime: number
     private: number
     _all: number
   }
@@ -2340,11 +2482,13 @@ export namespace Prisma {
   export type RecipeAvgAggregateInputType = {
     id?: true
     userId?: true
+    prepTime?: true
   }
 
   export type RecipeSumAggregateInputType = {
     id?: true
     userId?: true
+    prepTime?: true
   }
 
   export type RecipeMinAggregateInputType = {
@@ -2353,6 +2497,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    prepTime?: true
     private?: true
   }
 
@@ -2362,6 +2507,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    prepTime?: true
     private?: true
   }
 
@@ -2371,6 +2517,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    prepTime?: true
     private?: true
     _all?: true
   }
@@ -2464,9 +2611,10 @@ export namespace Prisma {
   export type RecipeGroupByOutputType = {
     id: number
     title: string
-    description: string
+    description: string | null
     image: string | null
     userId: number
+    prepTime: number
     private: boolean
     _count: RecipeCountAggregateOutputType | null
     _avg: RecipeAvgAggregateOutputType | null
@@ -2495,10 +2643,12 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    prepTime?: boolean
     private?: boolean
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
     instructions?: boolean | Recipe$instructionsArgs<ExtArgs>
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    ratings?: boolean | Recipe$ratingsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2508,8 +2658,9 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    prepTime?: boolean
     private?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
   export type RecipeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2518,8 +2669,9 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    prepTime?: boolean
     private?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
   export type RecipeSelectScalar = {
@@ -2528,21 +2680,23 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    prepTime?: boolean
     private?: boolean
   }
 
-  export type RecipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "image" | "userId" | "private", ExtArgs["result"]["recipe"]>
+  export type RecipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "image" | "userId" | "prepTime" | "private", ExtArgs["result"]["recipe"]>
   export type RecipeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
     instructions?: boolean | Recipe$instructionsArgs<ExtArgs>
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    ratings?: boolean | Recipe$ratingsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RecipeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type RecipeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $RecipePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2550,14 +2704,16 @@ export namespace Prisma {
     objects: {
       ingredients: Prisma.$IngredientPayload<ExtArgs>[]
       instructions: Prisma.$InstructionPayload<ExtArgs>[]
-      User: Prisma.$UserPayload<ExtArgs>
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
-      description: string
+      description: string | null
       image: string | null
       userId: number
+      prepTime: number
       private: boolean
     }, ExtArgs["result"]["recipe"]>
     composites: {}
@@ -2955,7 +3111,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ingredients<T extends Recipe$ingredientsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$ingredientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     instructions<T extends Recipe$instructionsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$instructionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructionPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    ratings<T extends Recipe$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2990,6 +3147,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Recipe", 'String'>
     readonly image: FieldRef<"Recipe", 'String'>
     readonly userId: FieldRef<"Recipe", 'Int'>
+    readonly prepTime: FieldRef<"Recipe", 'Int'>
     readonly private: FieldRef<"Recipe", 'Boolean'>
   }
     
@@ -3421,6 +3579,30 @@ export namespace Prisma {
   }
 
   /**
+   * Recipe.ratings
+   */
+  export type Recipe$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
    * Recipe without action
    */
   export type RecipeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3453,20 +3635,20 @@ export namespace Prisma {
 
   export type IngredientAvgAggregateOutputType = {
     id: number | null
-    quantity: number | null
+    quantity: Decimal | null
     recipeId: number | null
   }
 
   export type IngredientSumAggregateOutputType = {
     id: number | null
-    quantity: number | null
+    quantity: Decimal | null
     recipeId: number | null
   }
 
   export type IngredientMinAggregateOutputType = {
     id: number | null
     name: string | null
-    quantity: number | null
+    quantity: Decimal | null
     unit: string | null
     recipeId: number | null
   }
@@ -3474,7 +3656,7 @@ export namespace Prisma {
   export type IngredientMaxAggregateOutputType = {
     id: number | null
     name: string | null
-    quantity: number | null
+    quantity: Decimal | null
     unit: string | null
     recipeId: number | null
   }
@@ -3615,7 +3797,7 @@ export namespace Prisma {
   export type IngredientGroupByOutputType = {
     id: number
     name: string
-    quantity: number
+    quantity: Decimal
     unit: string
     recipeId: number
     _count: IngredientCountAggregateOutputType | null
@@ -3693,7 +3875,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      quantity: number
+      quantity: Prisma.Decimal
       unit: string
       recipeId: number
     }, ExtArgs["result"]["ingredient"]>
@@ -4122,7 +4304,7 @@ export namespace Prisma {
   interface IngredientFieldRefs {
     readonly id: FieldRef<"Ingredient", 'Int'>
     readonly name: FieldRef<"Ingredient", 'String'>
-    readonly quantity: FieldRef<"Ingredient", 'Float'>
+    readonly quantity: FieldRef<"Ingredient", 'Decimal'>
     readonly unit: FieldRef<"Ingredient", 'String'>
     readonly recipeId: FieldRef<"Ingredient", 'Int'>
   }
@@ -5599,6 +5781,1100 @@ export namespace Prisma {
 
 
   /**
+   * Model Rating
+   */
+
+  export type AggregateRating = {
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  export type RatingAvgAggregateOutputType = {
+    userId: number | null
+    recipeId: number | null
+    stars: number | null
+  }
+
+  export type RatingSumAggregateOutputType = {
+    userId: number | null
+    recipeId: number | null
+    stars: number | null
+  }
+
+  export type RatingMinAggregateOutputType = {
+    userId: number | null
+    recipeId: number | null
+    stars: number | null
+    liked: boolean | null
+    saved: boolean | null
+  }
+
+  export type RatingMaxAggregateOutputType = {
+    userId: number | null
+    recipeId: number | null
+    stars: number | null
+    liked: boolean | null
+    saved: boolean | null
+  }
+
+  export type RatingCountAggregateOutputType = {
+    userId: number
+    recipeId: number
+    stars: number
+    liked: number
+    saved: number
+    _all: number
+  }
+
+
+  export type RatingAvgAggregateInputType = {
+    userId?: true
+    recipeId?: true
+    stars?: true
+  }
+
+  export type RatingSumAggregateInputType = {
+    userId?: true
+    recipeId?: true
+    stars?: true
+  }
+
+  export type RatingMinAggregateInputType = {
+    userId?: true
+    recipeId?: true
+    stars?: true
+    liked?: true
+    saved?: true
+  }
+
+  export type RatingMaxAggregateInputType = {
+    userId?: true
+    recipeId?: true
+    stars?: true
+    liked?: true
+    saved?: true
+  }
+
+  export type RatingCountAggregateInputType = {
+    userId?: true
+    recipeId?: true
+    stars?: true
+    liked?: true
+    saved?: true
+    _all?: true
+  }
+
+  export type RatingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rating to aggregate.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ratings
+    **/
+    _count?: true | RatingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RatingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RatingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RatingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type GetRatingAggregateType<T extends RatingAggregateArgs> = {
+        [P in keyof T & keyof AggregateRating]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRating[P]>
+      : GetScalarType<T[P], AggregateRating[P]>
+  }
+
+
+
+
+  export type RatingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithAggregationInput | RatingOrderByWithAggregationInput[]
+    by: RatingScalarFieldEnum[] | RatingScalarFieldEnum
+    having?: RatingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RatingCountAggregateInputType | true
+    _avg?: RatingAvgAggregateInputType
+    _sum?: RatingSumAggregateInputType
+    _min?: RatingMinAggregateInputType
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type RatingGroupByOutputType = {
+    userId: number
+    recipeId: number
+    stars: number
+    liked: boolean
+    saved: boolean
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  type GetRatingGroupByPayload<T extends RatingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RatingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RatingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RatingGroupByOutputType[P]>
+            : GetScalarType<T[P], RatingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RatingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    recipeId?: boolean
+    stars?: boolean
+    liked?: boolean
+    saved?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    recipeId?: boolean
+    stars?: boolean
+    liked?: boolean
+    saved?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    recipeId?: boolean
+    stars?: boolean
+    liked?: boolean
+    saved?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectScalar = {
+    userId?: boolean
+    recipeId?: boolean
+    stars?: boolean
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "recipeId" | "stars" | "liked" | "saved", ExtArgs["result"]["rating"]>
+  export type RatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }
+  export type RatingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }
+  export type RatingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    recipe?: boolean | RecipeDefaultArgs<ExtArgs>
+  }
+
+  export type $RatingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rating"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      recipe: Prisma.$RecipePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: number
+      recipeId: number
+      stars: number
+      liked: boolean
+      saved: boolean
+    }, ExtArgs["result"]["rating"]>
+    composites: {}
+  }
+
+  type RatingGetPayload<S extends boolean | null | undefined | RatingDefaultArgs> = $Result.GetResult<Prisma.$RatingPayload, S>
+
+  type RatingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RatingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RatingCountAggregateInputType | true
+    }
+
+  export interface RatingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rating'], meta: { name: 'Rating' } }
+    /**
+     * Find zero or one Rating that matches the filter.
+     * @param {RatingFindUniqueArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RatingFindUniqueArgs>(args: SelectSubset<T, RatingFindUniqueArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Rating that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RatingFindUniqueOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RatingFindUniqueOrThrowArgs>(args: SelectSubset<T, RatingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Rating that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RatingFindFirstArgs>(args?: SelectSubset<T, RatingFindFirstArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Rating that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RatingFindFirstOrThrowArgs>(args?: SelectSubset<T, RatingFindFirstOrThrowArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Ratings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ratings
+     * const ratings = await prisma.rating.findMany()
+     * 
+     * // Get first 10 Ratings
+     * const ratings = await prisma.rating.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const ratingWithUserIdOnly = await prisma.rating.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends RatingFindManyArgs>(args?: SelectSubset<T, RatingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Rating.
+     * @param {RatingCreateArgs} args - Arguments to create a Rating.
+     * @example
+     * // Create one Rating
+     * const Rating = await prisma.rating.create({
+     *   data: {
+     *     // ... data to create a Rating
+     *   }
+     * })
+     * 
+     */
+    create<T extends RatingCreateArgs>(args: SelectSubset<T, RatingCreateArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Ratings.
+     * @param {RatingCreateManyArgs} args - Arguments to create many Ratings.
+     * @example
+     * // Create many Ratings
+     * const rating = await prisma.rating.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RatingCreateManyArgs>(args?: SelectSubset<T, RatingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Ratings and returns the data saved in the database.
+     * @param {RatingCreateManyAndReturnArgs} args - Arguments to create many Ratings.
+     * @example
+     * // Create many Ratings
+     * const rating = await prisma.rating.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Ratings and only return the `userId`
+     * const ratingWithUserIdOnly = await prisma.rating.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RatingCreateManyAndReturnArgs>(args?: SelectSubset<T, RatingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Rating.
+     * @param {RatingDeleteArgs} args - Arguments to delete one Rating.
+     * @example
+     * // Delete one Rating
+     * const Rating = await prisma.rating.delete({
+     *   where: {
+     *     // ... filter to delete one Rating
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RatingDeleteArgs>(args: SelectSubset<T, RatingDeleteArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Rating.
+     * @param {RatingUpdateArgs} args - Arguments to update one Rating.
+     * @example
+     * // Update one Rating
+     * const rating = await prisma.rating.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RatingUpdateArgs>(args: SelectSubset<T, RatingUpdateArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Ratings.
+     * @param {RatingDeleteManyArgs} args - Arguments to filter Ratings to delete.
+     * @example
+     * // Delete a few Ratings
+     * const { count } = await prisma.rating.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RatingDeleteManyArgs>(args?: SelectSubset<T, RatingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ratings
+     * const rating = await prisma.rating.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RatingUpdateManyArgs>(args: SelectSubset<T, RatingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ratings and returns the data updated in the database.
+     * @param {RatingUpdateManyAndReturnArgs} args - Arguments to update many Ratings.
+     * @example
+     * // Update many Ratings
+     * const rating = await prisma.rating.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Ratings and only return the `userId`
+     * const ratingWithUserIdOnly = await prisma.rating.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RatingUpdateManyAndReturnArgs>(args: SelectSubset<T, RatingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Rating.
+     * @param {RatingUpsertArgs} args - Arguments to update or create a Rating.
+     * @example
+     * // Update or create a Rating
+     * const rating = await prisma.rating.upsert({
+     *   create: {
+     *     // ... data to create a Rating
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rating we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RatingUpsertArgs>(args: SelectSubset<T, RatingUpsertArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingCountArgs} args - Arguments to filter Ratings to count.
+     * @example
+     * // Count the number of Ratings
+     * const count = await prisma.rating.count({
+     *   where: {
+     *     // ... the filter for the Ratings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RatingCountArgs>(
+      args?: Subset<T, RatingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RatingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RatingAggregateArgs>(args: Subset<T, RatingAggregateArgs>): Prisma.PrismaPromise<GetRatingAggregateType<T>>
+
+    /**
+     * Group by Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RatingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RatingGroupByArgs['orderBy'] }
+        : { orderBy?: RatingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RatingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRatingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rating model
+   */
+  readonly fields: RatingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rating.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RatingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    recipe<T extends RecipeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RecipeDefaultArgs<ExtArgs>>): Prisma__RecipeClient<$Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rating model
+   */ 
+  interface RatingFieldRefs {
+    readonly userId: FieldRef<"Rating", 'Int'>
+    readonly recipeId: FieldRef<"Rating", 'Int'>
+    readonly stars: FieldRef<"Rating", 'Int'>
+    readonly liked: FieldRef<"Rating", 'Boolean'>
+    readonly saved: FieldRef<"Rating", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rating findUnique
+   */
+  export type RatingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating findUniqueOrThrow
+   */
+  export type RatingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating findFirst
+   */
+  export type RatingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating findFirstOrThrow
+   */
+  export type RatingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating findMany
+   */
+  export type RatingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Ratings to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating create
+   */
+  export type RatingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rating.
+     */
+    data: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+  }
+
+  /**
+   * Rating createMany
+   */
+  export type RatingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Ratings.
+     */
+    data: RatingCreateManyInput | RatingCreateManyInput[]
+  }
+
+  /**
+   * Rating createManyAndReturn
+   */
+  export type RatingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Ratings.
+     */
+    data: RatingCreateManyInput | RatingCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rating update
+   */
+  export type RatingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rating.
+     */
+    data: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+    /**
+     * Choose, which Rating to update.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating updateMany
+   */
+  export type RatingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ratings.
+     */
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyInput>
+    /**
+     * Filter which Ratings to update
+     */
+    where?: RatingWhereInput
+  }
+
+  /**
+   * Rating updateManyAndReturn
+   */
+  export type RatingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * The data used to update Ratings.
+     */
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyInput>
+    /**
+     * Filter which Ratings to update
+     */
+    where?: RatingWhereInput
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rating upsert
+   */
+  export type RatingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rating to update in case it exists.
+     */
+    where: RatingWhereUniqueInput
+    /**
+     * In case the Rating found by the `where` argument doesn't exist, create a new Rating with this data.
+     */
+    create: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+    /**
+     * In case the Rating was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+  }
+
+  /**
+   * Rating delete
+   */
+  export type RatingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter which Rating to delete.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating deleteMany
+   */
+  export type RatingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ratings to delete
+     */
+    where?: RatingWhereInput
+  }
+
+  /**
+   * Rating without action
+   */
+  export type RatingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5625,6 +6901,7 @@ export namespace Prisma {
     description: 'description',
     image: 'image',
     userId: 'userId',
+    prepTime: 'prepTime',
     private: 'private'
   };
 
@@ -5650,6 +6927,17 @@ export namespace Prisma {
   };
 
   export type InstructionScalarFieldEnum = (typeof InstructionScalarFieldEnum)[keyof typeof InstructionScalarFieldEnum]
+
+
+  export const RatingScalarFieldEnum: {
+    userId: 'userId',
+    recipeId: 'recipeId',
+    stars: 'stars',
+    liked: 'liked',
+    saved: 'saved'
+  };
+
+  export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5695,6 +6983,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -5713,6 +7008,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     recipes?: RecipeListRelationFilter
+    ratings?: RatingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5721,6 +7017,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrderInput | SortOrder
     recipes?: RecipeOrderByRelationAggregateInput
+    ratings?: RatingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5732,6 +7029,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     recipes?: RecipeListRelationFilter
+    ratings?: RatingListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5762,25 +7060,29 @@ export namespace Prisma {
     NOT?: RecipeWhereInput | RecipeWhereInput[]
     id?: IntFilter<"Recipe"> | number
     title?: StringFilter<"Recipe"> | string
-    description?: StringFilter<"Recipe"> | string
+    description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
     ingredients?: IngredientListRelationFilter
     instructions?: InstructionListRelationFilter
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ratings?: RatingListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type RecipeOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
     private?: SortOrder
     ingredients?: IngredientOrderByRelationAggregateInput
     instructions?: InstructionOrderByRelationAggregateInput
-    User?: UserOrderByWithRelationInput
+    ratings?: RatingOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type RecipeWhereUniqueInput = Prisma.AtLeast<{
@@ -5790,21 +7092,24 @@ export namespace Prisma {
     OR?: RecipeWhereInput[]
     NOT?: RecipeWhereInput | RecipeWhereInput[]
     title?: StringFilter<"Recipe"> | string
-    description?: StringFilter<"Recipe"> | string
+    description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
     ingredients?: IngredientListRelationFilter
     instructions?: InstructionListRelationFilter
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ratings?: RatingListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "title_userId">
 
   export type RecipeOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
     private?: SortOrder
     _count?: RecipeCountOrderByAggregateInput
     _avg?: RecipeAvgOrderByAggregateInput
@@ -5819,9 +7124,10 @@ export namespace Prisma {
     NOT?: RecipeScalarWhereWithAggregatesInput | RecipeScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Recipe"> | number
     title?: StringWithAggregatesFilter<"Recipe"> | string
-    description?: StringWithAggregatesFilter<"Recipe"> | string
+    description?: StringNullableWithAggregatesFilter<"Recipe"> | string | null
     image?: StringNullableWithAggregatesFilter<"Recipe"> | string | null
     userId?: IntWithAggregatesFilter<"Recipe"> | number
+    prepTime?: IntWithAggregatesFilter<"Recipe"> | number
     private?: BoolWithAggregatesFilter<"Recipe"> | boolean
   }
 
@@ -5831,7 +7137,7 @@ export namespace Prisma {
     NOT?: IngredientWhereInput | IngredientWhereInput[]
     id?: IntFilter<"Ingredient"> | number
     name?: StringFilter<"Ingredient"> | string
-    quantity?: FloatFilter<"Ingredient"> | number
+    quantity?: DecimalFilter<"Ingredient"> | Decimal | DecimalJsLike | number | string
     unit?: StringFilter<"Ingredient"> | string
     recipeId?: IntFilter<"Ingredient"> | number
     recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
@@ -5852,7 +7158,7 @@ export namespace Prisma {
     OR?: IngredientWhereInput[]
     NOT?: IngredientWhereInput | IngredientWhereInput[]
     name?: StringFilter<"Ingredient"> | string
-    quantity?: FloatFilter<"Ingredient"> | number
+    quantity?: DecimalFilter<"Ingredient"> | Decimal | DecimalJsLike | number | string
     unit?: StringFilter<"Ingredient"> | string
     recipeId?: IntFilter<"Ingredient"> | number
     recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
@@ -5877,7 +7183,7 @@ export namespace Prisma {
     NOT?: IngredientScalarWhereWithAggregatesInput | IngredientScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Ingredient"> | number
     name?: StringWithAggregatesFilter<"Ingredient"> | string
-    quantity?: FloatWithAggregatesFilter<"Ingredient"> | number
+    quantity?: DecimalWithAggregatesFilter<"Ingredient"> | Decimal | DecimalJsLike | number | string
     unit?: StringWithAggregatesFilter<"Ingredient"> | string
     recipeId?: IntWithAggregatesFilter<"Ingredient"> | number
   }
@@ -5935,11 +7241,73 @@ export namespace Prisma {
     recipeId?: IntWithAggregatesFilter<"Instruction"> | number
   }
 
+  export type RatingWhereInput = {
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    userId?: IntFilter<"Rating"> | number
+    recipeId?: IntFilter<"Rating"> | number
+    stars?: IntFilter<"Rating"> | number
+    liked?: BoolFilter<"Rating"> | boolean
+    saved?: BoolFilter<"Rating"> | boolean
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
+  }
+
+  export type RatingOrderByWithRelationInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+    liked?: SortOrder
+    saved?: SortOrder
+    user?: UserOrderByWithRelationInput
+    recipe?: RecipeOrderByWithRelationInput
+  }
+
+  export type RatingWhereUniqueInput = Prisma.AtLeast<{
+    userId_recipeId?: RatingUserIdRecipeIdCompoundUniqueInput
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    userId?: IntFilter<"Rating"> | number
+    recipeId?: IntFilter<"Rating"> | number
+    stars?: IntFilter<"Rating"> | number
+    liked?: BoolFilter<"Rating"> | boolean
+    saved?: BoolFilter<"Rating"> | boolean
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
+  }, "userId_recipeId">
+
+  export type RatingOrderByWithAggregationInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+    liked?: SortOrder
+    saved?: SortOrder
+    _count?: RatingCountOrderByAggregateInput
+    _avg?: RatingAvgOrderByAggregateInput
+    _max?: RatingMaxOrderByAggregateInput
+    _min?: RatingMinOrderByAggregateInput
+    _sum?: RatingSumOrderByAggregateInput
+  }
+
+  export type RatingScalarWhereWithAggregatesInput = {
+    AND?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    OR?: RatingScalarWhereWithAggregatesInput[]
+    NOT?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    userId?: IntWithAggregatesFilter<"Rating"> | number
+    recipeId?: IntWithAggregatesFilter<"Rating"> | number
+    stars?: IntWithAggregatesFilter<"Rating"> | number
+    liked?: BoolWithAggregatesFilter<"Rating"> | boolean
+    saved?: BoolWithAggregatesFilter<"Rating"> | boolean
+  }
+
   export type UserCreateInput = {
     email: string
     password: string
     name?: string | null
     recipes?: RecipeCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5948,6 +7316,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5955,6 +7324,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5963,6 +7333,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5987,74 +7358,85 @@ export namespace Prisma {
 
   export type RecipeCreateInput = {
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    prepTime: number
     private?: boolean
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
-    User: UserCreateNestedOneWithoutRecipesInput
+    ratings?: RatingCreateNestedManyWithoutRecipeInput
+    user: UserCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
     userId: number
+    prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
     instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
-    User?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    ratings?: RatingUpdateManyWithoutRecipeNestedInput
+    user?: UserUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutRecipeNestedInput
   }
 
   export type RecipeCreateManyInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
     userId: number
+    prepTime: number
     private?: boolean
   }
 
   export type RecipeUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RecipeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IngredientCreateInput = {
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
     recipe: RecipeCreateNestedOneWithoutIngredientsInput
   }
@@ -6062,14 +7444,14 @@ export namespace Prisma {
   export type IngredientUncheckedCreateInput = {
     id?: number
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
     recipeId: number
   }
 
   export type IngredientUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
     recipe?: RecipeUpdateOneRequiredWithoutIngredientsNestedInput
   }
@@ -6077,7 +7459,7 @@ export namespace Prisma {
   export type IngredientUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
     recipeId?: IntFieldUpdateOperationsInput | number
   }
@@ -6085,21 +7467,21 @@ export namespace Prisma {
   export type IngredientCreateManyInput = {
     id?: number
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
     recipeId: number
   }
 
   export type IngredientUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
   }
 
   export type IngredientUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
     recipeId?: IntFieldUpdateOperationsInput | number
   }
@@ -6149,6 +7531,60 @@ export namespace Prisma {
     recipeId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type RatingCreateInput = {
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+    user: UserCreateNestedOneWithoutRatingsInput
+    recipe: RecipeCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateInput = {
+    userId: number
+    recipeId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RatingUpdateInput = {
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+    recipe?: RecipeUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    recipeId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RatingCreateManyInput = {
+    userId: number
+    recipeId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RatingUpdateManyMutationInput = {
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RatingUncheckedUpdateManyInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    recipeId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -6194,12 +7630,22 @@ export namespace Prisma {
     none?: RecipeWhereInput
   }
 
+  export type RatingListRelationFilter = {
+    every?: RatingWhereInput
+    some?: RatingWhereInput
+    none?: RatingWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type RecipeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RatingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6323,12 +7769,14 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
     private?: SortOrder
   }
 
   export type RecipeAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
   }
 
   export type RecipeMaxOrderByAggregateInput = {
@@ -6337,6 +7785,7 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
     private?: SortOrder
   }
 
@@ -6346,12 +7795,14 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
     private?: SortOrder
   }
 
   export type RecipeSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    prepTime?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -6362,15 +7813,15 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type RecipeScalarRelationFilter = {
@@ -6414,20 +7865,20 @@ export namespace Prisma {
     recipeId?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type InstructionStepRecipeIdCompoundUniqueInput = {
@@ -6468,6 +7919,47 @@ export namespace Prisma {
     recipeId?: SortOrder
   }
 
+  export type RatingUserIdRecipeIdCompoundUniqueInput = {
+    userId: number
+    recipeId: number
+  }
+
+  export type RatingCountOrderByAggregateInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+    liked?: SortOrder
+    saved?: SortOrder
+  }
+
+  export type RatingAvgOrderByAggregateInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+  }
+
+  export type RatingMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+    liked?: SortOrder
+    saved?: SortOrder
+  }
+
+  export type RatingMinOrderByAggregateInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+    liked?: SortOrder
+    saved?: SortOrder
+  }
+
+  export type RatingSumOrderByAggregateInput = {
+    userId?: SortOrder
+    recipeId?: SortOrder
+    stars?: SortOrder
+  }
+
   export type RecipeCreateNestedManyWithoutUserInput = {
     create?: XOR<RecipeCreateWithoutUserInput, RecipeUncheckedCreateWithoutUserInput> | RecipeCreateWithoutUserInput[] | RecipeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RecipeCreateOrConnectWithoutUserInput | RecipeCreateOrConnectWithoutUserInput[]
@@ -6475,11 +7967,25 @@ export namespace Prisma {
     connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
   }
 
+  export type RatingCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
   export type RecipeUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RecipeCreateWithoutUserInput, RecipeUncheckedCreateWithoutUserInput> | RecipeCreateWithoutUserInput[] | RecipeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RecipeCreateOrConnectWithoutUserInput | RecipeCreateOrConnectWithoutUserInput[]
     createMany?: RecipeCreateManyUserInputEnvelope
     connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6504,6 +8010,20 @@ export namespace Prisma {
     deleteMany?: RecipeScalarWhereInput | RecipeScalarWhereInput[]
   }
 
+  export type RatingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -6526,6 +8046,20 @@ export namespace Prisma {
     deleteMany?: RecipeScalarWhereInput | RecipeScalarWhereInput[]
   }
 
+  export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type IngredientCreateNestedManyWithoutRecipeInput = {
     create?: XOR<IngredientCreateWithoutRecipeInput, IngredientUncheckedCreateWithoutRecipeInput> | IngredientCreateWithoutRecipeInput[] | IngredientUncheckedCreateWithoutRecipeInput[]
     connectOrCreate?: IngredientCreateOrConnectWithoutRecipeInput | IngredientCreateOrConnectWithoutRecipeInput[]
@@ -6538,6 +8072,13 @@ export namespace Prisma {
     connectOrCreate?: InstructionCreateOrConnectWithoutRecipeInput | InstructionCreateOrConnectWithoutRecipeInput[]
     createMany?: InstructionCreateManyRecipeInputEnvelope
     connect?: InstructionWhereUniqueInput | InstructionWhereUniqueInput[]
+  }
+
+  export type RatingCreateNestedManyWithoutRecipeInput = {
+    create?: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput> | RatingCreateWithoutRecipeInput[] | RatingUncheckedCreateWithoutRecipeInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRecipeInput | RatingCreateOrConnectWithoutRecipeInput[]
+    createMany?: RatingCreateManyRecipeInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutRecipesInput = {
@@ -6558,6 +8099,13 @@ export namespace Prisma {
     connectOrCreate?: InstructionCreateOrConnectWithoutRecipeInput | InstructionCreateOrConnectWithoutRecipeInput[]
     createMany?: InstructionCreateManyRecipeInputEnvelope
     connect?: InstructionWhereUniqueInput | InstructionWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutRecipeInput = {
+    create?: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput> | RatingCreateWithoutRecipeInput[] | RatingUncheckedCreateWithoutRecipeInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRecipeInput | RatingCreateOrConnectWithoutRecipeInput[]
+    createMany?: RatingCreateManyRecipeInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -6590,6 +8138,20 @@ export namespace Prisma {
     update?: InstructionUpdateWithWhereUniqueWithoutRecipeInput | InstructionUpdateWithWhereUniqueWithoutRecipeInput[]
     updateMany?: InstructionUpdateManyWithWhereWithoutRecipeInput | InstructionUpdateManyWithWhereWithoutRecipeInput[]
     deleteMany?: InstructionScalarWhereInput | InstructionScalarWhereInput[]
+  }
+
+  export type RatingUpdateManyWithoutRecipeNestedInput = {
+    create?: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput> | RatingCreateWithoutRecipeInput[] | RatingUncheckedCreateWithoutRecipeInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRecipeInput | RatingCreateOrConnectWithoutRecipeInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutRecipeInput | RatingUpsertWithWhereUniqueWithoutRecipeInput[]
+    createMany?: RatingCreateManyRecipeInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutRecipeInput | RatingUpdateWithWhereUniqueWithoutRecipeInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutRecipeInput | RatingUpdateManyWithWhereWithoutRecipeInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutRecipesNestedInput = {
@@ -6628,18 +8190,32 @@ export namespace Prisma {
     deleteMany?: InstructionScalarWhereInput | InstructionScalarWhereInput[]
   }
 
+  export type RatingUncheckedUpdateManyWithoutRecipeNestedInput = {
+    create?: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput> | RatingCreateWithoutRecipeInput[] | RatingUncheckedCreateWithoutRecipeInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRecipeInput | RatingCreateOrConnectWithoutRecipeInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutRecipeInput | RatingUpsertWithWhereUniqueWithoutRecipeInput[]
+    createMany?: RatingCreateManyRecipeInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutRecipeInput | RatingUpdateWithWhereUniqueWithoutRecipeInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutRecipeInput | RatingUpdateManyWithWhereWithoutRecipeInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type RecipeCreateNestedOneWithoutIngredientsInput = {
     create?: XOR<RecipeCreateWithoutIngredientsInput, RecipeUncheckedCreateWithoutIngredientsInput>
     connectOrCreate?: RecipeCreateOrConnectWithoutIngredientsInput
     connect?: RecipeWhereUniqueInput
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type RecipeUpdateOneRequiredWithoutIngredientsNestedInput = {
@@ -6662,6 +8238,34 @@ export namespace Prisma {
     upsert?: RecipeUpsertWithoutInstructionsInput
     connect?: RecipeWhereUniqueInput
     update?: XOR<XOR<RecipeUpdateToOneWithWhereWithoutInstructionsInput, RecipeUpdateWithoutInstructionsInput>, RecipeUncheckedUpdateWithoutInstructionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RecipeCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<RecipeCreateWithoutRatingsInput, RecipeUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: RecipeCreateOrConnectWithoutRatingsInput
+    connect?: RecipeWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRatingsNestedInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    upsert?: UserUpsertWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRatingsInput, UserUpdateWithoutRatingsInput>, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type RecipeUpdateOneRequiredWithoutRatingsNestedInput = {
+    create?: XOR<RecipeCreateWithoutRatingsInput, RecipeUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: RecipeCreateOrConnectWithoutRatingsInput
+    upsert?: RecipeUpsertWithoutRatingsInput
+    connect?: RecipeWhereUniqueInput
+    update?: XOR<XOR<RecipeUpdateToOneWithWhereWithoutRatingsInput, RecipeUpdateWithoutRatingsInput>, RecipeUncheckedUpdateWithoutRatingsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -6788,39 +8392,54 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type RecipeCreateWithoutUserInput = {
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    prepTime: number
     private?: boolean
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
+    ratings?: RatingCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeUncheckedCreateWithoutUserInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
     instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeCreateOrConnectWithoutUserInput = {
@@ -6830,6 +8449,29 @@ export namespace Prisma {
 
   export type RecipeCreateManyUserInputEnvelope = {
     data: RecipeCreateManyUserInput | RecipeCreateManyUserInput[]
+  }
+
+  export type RatingCreateWithoutUserInput = {
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+    recipe: RecipeCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutUserInput = {
+    recipeId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RatingCreateOrConnectWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingCreateManyUserInputEnvelope = {
+    data: RatingCreateManyUserInput | RatingCreateManyUserInput[]
   }
 
   export type RecipeUpsertWithWhereUniqueWithoutUserInput = {
@@ -6854,22 +8496,50 @@ export namespace Prisma {
     NOT?: RecipeScalarWhereInput | RecipeScalarWhereInput[]
     id?: IntFilter<"Recipe"> | number
     title?: StringFilter<"Recipe"> | string
-    description?: StringFilter<"Recipe"> | string
+    description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
+  }
+
+  export type RatingUpsertWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutUserInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RatingScalarWhereInput = {
+    AND?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    OR?: RatingScalarWhereInput[]
+    NOT?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    userId?: IntFilter<"Rating"> | number
+    recipeId?: IntFilter<"Rating"> | number
+    stars?: IntFilter<"Rating"> | number
+    liked?: BoolFilter<"Rating"> | boolean
+    saved?: BoolFilter<"Rating"> | boolean
   }
 
   export type IngredientCreateWithoutRecipeInput = {
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
   }
 
   export type IngredientUncheckedCreateWithoutRecipeInput = {
     id?: number
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
   }
 
@@ -6902,10 +8572,34 @@ export namespace Prisma {
     data: InstructionCreateManyRecipeInput | InstructionCreateManyRecipeInput[]
   }
 
+  export type RatingCreateWithoutRecipeInput = {
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+    user: UserCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutRecipeInput = {
+    userId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RatingCreateOrConnectWithoutRecipeInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput>
+  }
+
+  export type RatingCreateManyRecipeInputEnvelope = {
+    data: RatingCreateManyRecipeInput | RatingCreateManyRecipeInput[]
+  }
+
   export type UserCreateWithoutRecipesInput = {
     email: string
     password: string
     name?: string | null
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecipesInput = {
@@ -6913,6 +8607,7 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecipesInput = {
@@ -6942,7 +8637,7 @@ export namespace Prisma {
     NOT?: IngredientScalarWhereInput | IngredientScalarWhereInput[]
     id?: IntFilter<"Ingredient"> | number
     name?: StringFilter<"Ingredient"> | string
-    quantity?: FloatFilter<"Ingredient"> | number
+    quantity?: DecimalFilter<"Ingredient"> | Decimal | DecimalJsLike | number | string
     unit?: StringFilter<"Ingredient"> | string
     recipeId?: IntFilter<"Ingredient"> | number
   }
@@ -6973,6 +8668,22 @@ export namespace Prisma {
     recipeId?: IntFilter<"Instruction"> | number
   }
 
+  export type RatingUpsertWithWhereUniqueWithoutRecipeInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutRecipeInput, RatingUncheckedUpdateWithoutRecipeInput>
+    create: XOR<RatingCreateWithoutRecipeInput, RatingUncheckedCreateWithoutRecipeInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutRecipeInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutRecipeInput, RatingUncheckedUpdateWithoutRecipeInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutRecipeInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutRecipeInput>
+  }
+
   export type UserUpsertWithoutRecipesInput = {
     update: XOR<UserUpdateWithoutRecipesInput, UserUncheckedUpdateWithoutRecipesInput>
     create: XOR<UserCreateWithoutRecipesInput, UserUncheckedCreateWithoutRecipesInput>
@@ -6988,6 +8699,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecipesInput = {
@@ -6995,25 +8707,30 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RecipeCreateWithoutIngredientsInput = {
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    prepTime: number
     private?: boolean
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
-    User: UserCreateNestedOneWithoutRecipesInput
+    ratings?: RatingCreateNestedManyWithoutRecipeInput
+    user: UserCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutIngredientsInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
     userId: number
+    prepTime: number
     private?: boolean
     instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeCreateOrConnectWithoutIngredientsInput = {
@@ -7034,40 +8751,48 @@ export namespace Prisma {
 
   export type RecipeUpdateWithoutIngredientsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
-    User?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    ratings?: RatingUpdateManyWithoutRecipeNestedInput
+    user?: UserUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutIngredientsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutRecipeNestedInput
   }
 
   export type RecipeCreateWithoutInstructionsInput = {
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    prepTime: number
     private?: boolean
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
-    User: UserCreateNestedOneWithoutRecipesInput
+    ratings?: RatingCreateNestedManyWithoutRecipeInput
+    user: UserCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutInstructionsInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
     userId: number
+    prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeCreateOrConnectWithoutInstructionsInput = {
@@ -7088,62 +8813,208 @@ export namespace Prisma {
 
   export type RecipeUpdateWithoutInstructionsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
-    User?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    ratings?: RatingUpdateManyWithoutRecipeNestedInput
+    user?: UserUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutInstructionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutRecipeNestedInput
   }
 
-  export type RecipeCreateManyUserInput = {
+  export type UserCreateWithoutRatingsInput = {
+    email: string
+    password: string
+    name?: string | null
+    recipes?: RecipeCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRatingsInput = {
+    id?: number
+    email: string
+    password: string
+    name?: string | null
+    recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRatingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type RecipeCreateWithoutRatingsInput = {
+    title: string
+    description?: string | null
+    image?: string | null
+    prepTime: number
+    private?: boolean
+    ingredients?: IngredientCreateNestedManyWithoutRecipeInput
+    instructions?: InstructionCreateNestedManyWithoutRecipeInput
+    user: UserCreateNestedOneWithoutRecipesInput
+  }
+
+  export type RecipeUncheckedCreateWithoutRatingsInput = {
     id?: number
     title: string
-    description: string
+    description?: string | null
     image?: string | null
+    userId: number
+    prepTime: number
     private?: boolean
+    ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
+    instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
   }
 
-  export type RecipeUpdateWithoutUserInput = {
+  export type RecipeCreateOrConnectWithoutRatingsInput = {
+    where: RecipeWhereUniqueInput
+    create: XOR<RecipeCreateWithoutRatingsInput, RecipeUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type UserUpsertWithoutRatingsInput = {
+    update: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type UserUpdateWithoutRatingsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    recipes?: RecipeUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRatingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RecipeUpsertWithoutRatingsInput = {
+    update: XOR<RecipeUpdateWithoutRatingsInput, RecipeUncheckedUpdateWithoutRatingsInput>
+    create: XOR<RecipeCreateWithoutRatingsInput, RecipeUncheckedCreateWithoutRatingsInput>
+    where?: RecipeWhereInput
+  }
+
+  export type RecipeUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: RecipeWhereInput
+    data: XOR<RecipeUpdateWithoutRatingsInput, RecipeUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type RecipeUpdateWithoutRatingsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
+    user?: UserUpdateOneRequiredWithoutRecipesNestedInput
   }
 
-  export type RecipeUncheckedUpdateWithoutUserInput = {
+  export type RecipeUncheckedUpdateWithoutRatingsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
   }
 
+  export type RecipeCreateManyUserInput = {
+    id?: number
+    title: string
+    description?: string | null
+    image?: string | null
+    prepTime: number
+    private?: boolean
+  }
+
+  export type RatingCreateManyUserInput = {
+    recipeId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
+  export type RecipeUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
+    private?: BoolFieldUpdateOperationsInput | boolean
+    ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
+    instructions?: InstructionUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUpdateManyWithoutRecipeNestedInput
+  }
+
+  export type RecipeUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
+    private?: BoolFieldUpdateOperationsInput | boolean
+    ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
+    instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  }
+
   export type RecipeUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RatingUpdateWithoutUserInput = {
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+    recipe?: RecipeUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutUserInput = {
+    recipeId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RatingUncheckedUpdateManyWithoutUserInput = {
+    recipeId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IngredientCreateManyRecipeInput = {
     id?: number
     name: string
-    quantity: number
+    quantity: Decimal | DecimalJsLike | number | string
     unit: string
   }
 
@@ -7153,23 +9024,30 @@ export namespace Prisma {
     content: string
   }
 
+  export type RatingCreateManyRecipeInput = {
+    userId: number
+    stars?: number
+    liked?: boolean
+    saved?: boolean
+  }
+
   export type IngredientUpdateWithoutRecipeInput = {
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
   }
 
   export type IngredientUncheckedUpdateWithoutRecipeInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
   }
 
   export type IngredientUncheckedUpdateManyWithoutRecipeInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    quantity?: FloatFieldUpdateOperationsInput | number
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
   }
 
@@ -7188,6 +9066,27 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RatingUpdateWithoutRecipeInput = {
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutRecipeInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RatingUncheckedUpdateManyWithoutRecipeInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    stars?: IntFieldUpdateOperationsInput | number
+    liked?: BoolFieldUpdateOperationsInput | boolean
+    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
 
