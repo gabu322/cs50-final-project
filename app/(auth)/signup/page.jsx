@@ -56,15 +56,16 @@ export default function Page({ }) {
       }
    };
 
-   return <div className="flex flex-col justify-center items-center w-full gap-4 bg-white py-6 rounded-lg shadow-lg max-w-md">
+   return <div className="flex flex-col justify-center items-center w-full gap-4 bg-white py-6 rounded-3xl shadow-lg max-w-sm">
       <h1 className="text-2xl">Signup</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-4/5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full px-6">
          <Input
             name="name"
             label="Name"
             type="text"
             onChange={handleChange}
+            rounded
          />
 
          <Input
@@ -72,6 +73,7 @@ export default function Page({ }) {
             label="Email"
             type="email"
             onChange={handleChange}
+            rounded
             required
          />
 
@@ -80,6 +82,7 @@ export default function Page({ }) {
             label="Password"
             type="password"
             onChange={handleChange}
+            rounded
             required
          />
 
@@ -88,6 +91,7 @@ export default function Page({ }) {
             label="Confirm Password"
             type="password"
             onChange={handleChange}
+            rounded
             required
          />
 
@@ -95,6 +99,9 @@ export default function Page({ }) {
             className="w-full"
             type="submit"
             text={"Sign Up"}
+            bgColor={"bg-orange-300"}
+            hoverColor={"hover:bg-orange-400"}
+            rounded
          />
       </form>
    </div>;
