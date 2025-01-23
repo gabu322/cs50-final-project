@@ -16,28 +16,33 @@ model User {
 
    // Relations
    recipes Recipe[]
+   ratings Rating[] // Fixed typo
 }
 
 model Recipe {
    id          Int     @id @default(autoincrement())
    title       String
-   description String
+   description String?
    image       String?
    userId      Int
+   prepTime    Int // In minutes
    private     Boolean @default(true)
 
    // Relations
    ingredients  Ingredient[]
    instructions Instruction[]
-   User         User          @relation(fields: [userId], references: [id])
+   ratings      Rating[]
+
+   // Foreign Key
+   user User @relation(fields: [userId], references: [id])
 
    @@unique([title, userId])
 }
 
 model Ingredient {
-   id       Int    @id @default(autoincrement())
+   id       Int     @id @default(autoincrement())
    name     String
-   quantity Float
+   quantity Decimal
    unit     String
    recipeId Int
 
@@ -55,4 +60,18 @@ model Instruction {
    recipe Recipe @relation(fields: [recipeId], references: [id])
 
    @@unique([step, recipeId])
+}
+
+model Rating {
+   userId   Int
+   recipeId Int
+   stars    Int     @default(0)
+   liked    Boolean @default(false)
+   saved    Boolean @default(false)
+
+   // Foreign keys
+   user   User   @relation(fields: [userId], references: [id])
+   recipe Recipe @relation(fields: [recipeId], references: [id])
+
+   @@id([userId, recipeId]) // Composite primary key
 }
