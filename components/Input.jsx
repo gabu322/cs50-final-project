@@ -154,7 +154,7 @@ export default function Input({
    }
 
    return <div
-      className={`flex flex-row gap-2 px-2 relative transition-all text-black box-border outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 shadow ${rounded ? "rounded-full" : "rounded"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
+      className={`flex flex-row gap-2 relative transition-all text-black box-border outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 shadow ${rounded ? "rounded-full px-4" : "rounded px-2"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
       onFocus={() => setIsFocused(true)}
       onBlur={() => {
          setIsFocused(false);
@@ -196,9 +196,7 @@ export default function Input({
 
       {label && <label
          htmlFor={id || name}
-         className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 leading-1
-            ${isFocused || value || type == "date" || type == "month" || type == "color" || type == "datetime-local" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} 
-            ${disabled ? 'bg-gray-200' : 'bg-white'}`}
+         className={`absolute transition-all rounded whitespace-nowrap font-medium z-2 leading-1 ${rounded ? "left-3" : "left-2"} ${isFocused || value || type == "date" || type == "month" || type == "color" || type == "datetime-local" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? 'bg-gray-200' : 'bg-white'}`}
          style={{ color: infoColor.text }}
       >
          {label}{required && "*"}
