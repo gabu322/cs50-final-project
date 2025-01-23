@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 const bgColors = {
-   blue: { bg: "bg-blue-600", hover: "bg-blue-700" },
-   red: { bg: "bg-red-500", hover: "bg-red-600" },
-   green: { bg: "bg-green-600", hover: "bg-green-700" },
-   yellow: { bg: "bg-yellow-300", hover: "bg-yellow-400" },
-   orange: { bg: "bg-orange-400", hover: "bg-orange-500" },
-   black: { bg: "bg-black", hover: "bg-gray-800" }
+   blue: { bg: "bg-blue-600", hover: "hover:bg-blue-700" },
+   red: { bg: "bg-red-500", hover: "hover:bg-red-600" },
+   green: { bg: "bg-green-600", hover: "hover:bg-green-700" },
+   yellow: { bg: "bg-yellow-300", hover: "hover:bg-yellow-400" },
+   orange: { bg: "bg-orange-300", hover: "hover:bg-orange-400" },
+   black: { bg: "bg-black", hover: "hover:bg-gray-800" }
 }
 
 export default function Button({
