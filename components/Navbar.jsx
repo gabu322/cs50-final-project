@@ -22,7 +22,5 @@ export default function Navbar() {
          placeholder="Select a recipe"
          rounded
       />
-
-      {/* <h3 className="bg-orange-300 p-2 px-4 rounded-full text-lg">{session?.user.email.split("@")[0]}</h3> */}
    </nav>;
 }
