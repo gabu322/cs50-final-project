@@ -13,6 +13,7 @@ model User {
    email    String  @unique
    password String
    name     String?
+   image    String?
 
    // Relations
    recipes Recipe[]
@@ -25,6 +26,7 @@ model Recipe {
    description String?
    image       String?
    userId      Int
+   categoryId  Int
    prepTime    Int // In minutes
    private     Boolean @default(true)
 
@@ -33,8 +35,9 @@ model Recipe {
    instructions Instruction[]
    ratings      Rating[]
 
-   // Foreign Key
-   user User @relation(fields: [userId], references: [id])
+   // Foreign Keys
+   user     User     @relation(fields: [userId], references: [id])
+   category Category @relation(fields: [categoryId], references: [id])
 
    @@unique([title, userId])
 }
@@ -67,11 +70,18 @@ model Rating {
    recipeId Int
    stars    Int     @default(0)
    liked    Boolean @default(false)
-   saved    Boolean @default(false)
 
    // Foreign keys
    user   User   @relation(fields: [userId], references: [id])
    recipe Recipe @relation(fields: [recipeId], references: [id])
 
    @@id([userId, recipeId]) // Composite primary key
+}
+
+model Category {
+   id   Int    @id @default(autoincrement())
+   name String @unique
+
+   // Relations
+   recipes Recipe[]
 }
