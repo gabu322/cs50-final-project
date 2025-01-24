@@ -34,7 +34,7 @@ export default function Page({ }) {
          // Call the custom register API
          const response = await axios.post("/api/auth/register", signup);
 
-         if (!response.ok) {
+         if (response.status != 201) {
             throw new Error("Failed to register");
          }
 
