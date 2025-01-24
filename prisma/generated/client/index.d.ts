@@ -38,6 +38,11 @@ export type Instruction = $Result.DefaultSelection<Prisma.$InstructionPayload>
  * 
  */
 export type Rating = $Result.DefaultSelection<Prisma.$RatingPayload>
+/**
+ * Model Category
+ * 
+ */
+export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get rating(): Prisma.RatingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Categories
+    * const categories = await prisma.category.findMany()
+    * ```
+    */
+  get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -657,7 +672,8 @@ export namespace Prisma {
     Recipe: 'Recipe',
     Ingredient: 'Ingredient',
     Instruction: 'Instruction',
-    Rating: 'Rating'
+    Rating: 'Rating',
+    Category: 'Category'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -673,7 +689,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "recipe" | "ingredient" | "instruction" | "rating"
+      modelProps: "user" | "recipe" | "ingredient" | "instruction" | "rating" | "category"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1047,6 +1063,80 @@ export namespace Prisma {
           }
         }
       }
+      Category: {
+        payload: Prisma.$CategoryPayload<ExtArgs>
+        fields: Prisma.CategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.CategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findMany: {
+            args: Prisma.CategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          create: {
+            args: Prisma.CategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          createMany: {
+            args: Prisma.CategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.CategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          update: {
+            args: Prisma.CategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.CategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.CategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategory>
+          }
+          groupBy: {
+            args: Prisma.CategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1136,6 +1226,7 @@ export namespace Prisma {
     ingredient?: IngredientOmit
     instruction?: InstructionOmit
     rating?: RatingOmit
+    category?: CategoryOmit
   }
 
   /* Types for Logging */
@@ -1315,6 +1406,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CategoryCountOutputType
+   */
+
+  export type CategoryCountOutputType = {
+    recipes: number
+  }
+
+  export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recipes?: boolean | CategoryCountOutputTypeCountRecipesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryCountOutputType
+     */
+    select?: CategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeCountRecipesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecipeWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1343,6 +1465,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     name: string | null
+    image: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1350,6 +1473,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     name: string | null
+    image: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1357,6 +1481,7 @@ export namespace Prisma {
     email: number
     password: number
     name: number
+    image: number
     _all: number
   }
 
@@ -1374,6 +1499,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
+    image?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1381,6 +1507,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
+    image?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1388,6 +1515,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
+    image?: true
     _all?: true
   }
 
@@ -1482,6 +1610,7 @@ export namespace Prisma {
     email: string
     password: string
     name: string | null
+    image: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1508,6 +1637,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
+    image?: boolean
     recipes?: boolean | User$recipesArgs<ExtArgs>
     ratings?: boolean | User$ratingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1518,6 +1648,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
+    image?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1525,6 +1656,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
+    image?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1532,9 +1664,10 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
+    image?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "image", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     recipes?: boolean | User$recipesArgs<ExtArgs>
     ratings?: boolean | User$ratingsArgs<ExtArgs>
@@ -1554,6 +1687,7 @@ export namespace Prisma {
       email: string
       password: string
       name: string | null
+      image: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1983,6 +2117,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly image: FieldRef<"User", 'String'>
   }
     
 
@@ -2438,12 +2573,14 @@ export namespace Prisma {
   export type RecipeAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    categoryId: number | null
     prepTime: number | null
   }
 
   export type RecipeSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    categoryId: number | null
     prepTime: number | null
   }
 
@@ -2453,6 +2590,7 @@ export namespace Prisma {
     description: string | null
     image: string | null
     userId: number | null
+    categoryId: number | null
     prepTime: number | null
     private: boolean | null
   }
@@ -2463,6 +2601,7 @@ export namespace Prisma {
     description: string | null
     image: string | null
     userId: number | null
+    categoryId: number | null
     prepTime: number | null
     private: boolean | null
   }
@@ -2473,6 +2612,7 @@ export namespace Prisma {
     description: number
     image: number
     userId: number
+    categoryId: number
     prepTime: number
     private: number
     _all: number
@@ -2482,12 +2622,14 @@ export namespace Prisma {
   export type RecipeAvgAggregateInputType = {
     id?: true
     userId?: true
+    categoryId?: true
     prepTime?: true
   }
 
   export type RecipeSumAggregateInputType = {
     id?: true
     userId?: true
+    categoryId?: true
     prepTime?: true
   }
 
@@ -2497,6 +2639,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    categoryId?: true
     prepTime?: true
     private?: true
   }
@@ -2507,6 +2650,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    categoryId?: true
     prepTime?: true
     private?: true
   }
@@ -2517,6 +2661,7 @@ export namespace Prisma {
     description?: true
     image?: true
     userId?: true
+    categoryId?: true
     prepTime?: true
     private?: true
     _all?: true
@@ -2614,6 +2759,7 @@ export namespace Prisma {
     description: string | null
     image: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private: boolean
     _count: RecipeCountAggregateOutputType | null
@@ -2643,12 +2789,14 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    categoryId?: boolean
     prepTime?: boolean
     private?: boolean
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
     instructions?: boolean | Recipe$instructionsArgs<ExtArgs>
     ratings?: boolean | Recipe$ratingsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2658,9 +2806,11 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    categoryId?: boolean
     prepTime?: boolean
     private?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
   export type RecipeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2669,9 +2819,11 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    categoryId?: boolean
     prepTime?: boolean
     private?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
   export type RecipeSelectScalar = {
@@ -2680,23 +2832,27 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     userId?: boolean
+    categoryId?: boolean
     prepTime?: boolean
     private?: boolean
   }
 
-  export type RecipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "image" | "userId" | "prepTime" | "private", ExtArgs["result"]["recipe"]>
+  export type RecipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "image" | "userId" | "categoryId" | "prepTime" | "private", ExtArgs["result"]["recipe"]>
   export type RecipeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
     instructions?: boolean | Recipe$instructionsArgs<ExtArgs>
     ratings?: boolean | Recipe$ratingsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RecipeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
   }
   export type RecipeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
   }
 
   export type $RecipePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2706,6 +2862,7 @@ export namespace Prisma {
       instructions: Prisma.$InstructionPayload<ExtArgs>[]
       ratings: Prisma.$RatingPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      category: Prisma.$CategoryPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2713,6 +2870,7 @@ export namespace Prisma {
       description: string | null
       image: string | null
       userId: number
+      categoryId: number
       prepTime: number
       private: boolean
     }, ExtArgs["result"]["recipe"]>
@@ -3113,6 +3271,7 @@ export namespace Prisma {
     instructions<T extends Recipe$instructionsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$instructionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructionPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     ratings<T extends Recipe$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3147,6 +3306,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Recipe", 'String'>
     readonly image: FieldRef<"Recipe", 'String'>
     readonly userId: FieldRef<"Recipe", 'Int'>
+    readonly categoryId: FieldRef<"Recipe", 'Int'>
     readonly prepTime: FieldRef<"Recipe", 'Int'>
     readonly private: FieldRef<"Recipe", 'Boolean'>
   }
@@ -5809,7 +5969,6 @@ export namespace Prisma {
     recipeId: number | null
     stars: number | null
     liked: boolean | null
-    saved: boolean | null
   }
 
   export type RatingMaxAggregateOutputType = {
@@ -5817,7 +5976,6 @@ export namespace Prisma {
     recipeId: number | null
     stars: number | null
     liked: boolean | null
-    saved: boolean | null
   }
 
   export type RatingCountAggregateOutputType = {
@@ -5825,7 +5983,6 @@ export namespace Prisma {
     recipeId: number
     stars: number
     liked: number
-    saved: number
     _all: number
   }
 
@@ -5847,7 +6004,6 @@ export namespace Prisma {
     recipeId?: true
     stars?: true
     liked?: true
-    saved?: true
   }
 
   export type RatingMaxAggregateInputType = {
@@ -5855,7 +6011,6 @@ export namespace Prisma {
     recipeId?: true
     stars?: true
     liked?: true
-    saved?: true
   }
 
   export type RatingCountAggregateInputType = {
@@ -5863,7 +6018,6 @@ export namespace Prisma {
     recipeId?: true
     stars?: true
     liked?: true
-    saved?: true
     _all?: true
   }
 
@@ -5958,7 +6112,6 @@ export namespace Prisma {
     recipeId: number
     stars: number
     liked: boolean
-    saved: boolean
     _count: RatingCountAggregateOutputType | null
     _avg: RatingAvgAggregateOutputType | null
     _sum: RatingSumAggregateOutputType | null
@@ -5985,7 +6138,6 @@ export namespace Prisma {
     recipeId?: boolean
     stars?: boolean
     liked?: boolean
-    saved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | RecipeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rating"]>
@@ -5995,7 +6147,6 @@ export namespace Prisma {
     recipeId?: boolean
     stars?: boolean
     liked?: boolean
-    saved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | RecipeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rating"]>
@@ -6005,7 +6156,6 @@ export namespace Prisma {
     recipeId?: boolean
     stars?: boolean
     liked?: boolean
-    saved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | RecipeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rating"]>
@@ -6015,10 +6165,9 @@ export namespace Prisma {
     recipeId?: boolean
     stars?: boolean
     liked?: boolean
-    saved?: boolean
   }
 
-  export type RatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "recipeId" | "stars" | "liked" | "saved", ExtArgs["result"]["rating"]>
+  export type RatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "recipeId" | "stars" | "liked", ExtArgs["result"]["rating"]>
   export type RatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     recipe?: boolean | RecipeDefaultArgs<ExtArgs>
@@ -6043,7 +6192,6 @@ export namespace Prisma {
       recipeId: number
       stars: number
       liked: boolean
-      saved: boolean
     }, ExtArgs["result"]["rating"]>
     composites: {}
   }
@@ -6473,7 +6621,6 @@ export namespace Prisma {
     readonly recipeId: FieldRef<"Rating", 'Int'>
     readonly stars: FieldRef<"Rating", 'Int'>
     readonly liked: FieldRef<"Rating", 'Boolean'>
-    readonly saved: FieldRef<"Rating", 'Boolean'>
   }
     
 
@@ -6875,6 +7022,1057 @@ export namespace Prisma {
 
 
   /**
+   * Model Category
+   */
+
+  export type AggregateCategory = {
+    _count: CategoryCountAggregateOutputType | null
+    _avg: CategoryAvgAggregateOutputType | null
+    _sum: CategorySumAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  export type CategoryAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategorySumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategoryMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type CategoryMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type CategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type CategoryAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CategorySumAggregateInputType = {
+    id?: true
+  }
+
+  export type CategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type CategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Category to aggregate.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Categories
+    **/
+    _count?: true | CategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CategoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CategorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type GetCategoryAggregateType<T extends CategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategory[P]>
+      : GetScalarType<T[P], AggregateCategory[P]>
+  }
+
+
+
+
+  export type CategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithAggregationInput | CategoryOrderByWithAggregationInput[]
+    by: CategoryScalarFieldEnum[] | CategoryScalarFieldEnum
+    having?: CategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoryCountAggregateInputType | true
+    _avg?: CategoryAvgAggregateInputType
+    _sum?: CategorySumAggregateInputType
+    _min?: CategoryMinAggregateInputType
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type CategoryGroupByOutputType = {
+    id: number
+    name: string
+    _count: CategoryCountAggregateOutputType | null
+    _avg: CategoryAvgAggregateOutputType | null
+    _sum: CategorySumAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    recipes?: boolean | Category$recipesArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["category"]>
+  export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recipes?: boolean | Category$recipesArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Category"
+    objects: {
+      recipes: Prisma.$RecipePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+    }, ExtArgs["result"]["category"]>
+    composites: {}
+  }
+
+  type CategoryGetPayload<S extends boolean | null | undefined | CategoryDefaultArgs> = $Result.GetResult<Prisma.$CategoryPayload, S>
+
+  type CategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoryCountAggregateInputType | true
+    }
+
+  export interface CategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Category'], meta: { name: 'Category' } }
+    /**
+     * Find zero or one Category that matches the filter.
+     * @param {CategoryFindUniqueArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CategoryFindUniqueArgs>(args: SelectSubset<T, CategoryFindUniqueArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Category that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CategoryFindUniqueOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Category that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CategoryFindFirstArgs>(args?: SelectSubset<T, CategoryFindFirstArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Category that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Categories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Categories
+     * const categories = await prisma.category.findMany()
+     * 
+     * // Get first 10 Categories
+     * const categories = await prisma.category.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoryWithIdOnly = await prisma.category.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CategoryFindManyArgs>(args?: SelectSubset<T, CategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Category.
+     * @param {CategoryCreateArgs} args - Arguments to create a Category.
+     * @example
+     * // Create one Category
+     * const Category = await prisma.category.create({
+     *   data: {
+     *     // ... data to create a Category
+     *   }
+     * })
+     * 
+     */
+    create<T extends CategoryCreateArgs>(args: SelectSubset<T, CategoryCreateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Categories.
+     * @param {CategoryCreateManyArgs} args - Arguments to create many Categories.
+     * @example
+     * // Create many Categories
+     * const category = await prisma.category.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CategoryCreateManyArgs>(args?: SelectSubset<T, CategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Categories and returns the data saved in the database.
+     * @param {CategoryCreateManyAndReturnArgs} args - Arguments to create many Categories.
+     * @example
+     * // Create many Categories
+     * const category = await prisma.category.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, CategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Category.
+     * @param {CategoryDeleteArgs} args - Arguments to delete one Category.
+     * @example
+     * // Delete one Category
+     * const Category = await prisma.category.delete({
+     *   where: {
+     *     // ... filter to delete one Category
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CategoryDeleteArgs>(args: SelectSubset<T, CategoryDeleteArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Category.
+     * @param {CategoryUpdateArgs} args - Arguments to update one Category.
+     * @example
+     * // Update one Category
+     * const category = await prisma.category.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CategoryUpdateArgs>(args: SelectSubset<T, CategoryUpdateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Categories.
+     * @param {CategoryDeleteManyArgs} args - Arguments to filter Categories to delete.
+     * @example
+     * // Delete a few Categories
+     * const { count } = await prisma.category.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CategoryDeleteManyArgs>(args?: SelectSubset<T, CategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Categories
+     * const category = await prisma.category.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CategoryUpdateManyArgs>(args: SelectSubset<T, CategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Categories and returns the data updated in the database.
+     * @param {CategoryUpdateManyAndReturnArgs} args - Arguments to update many Categories.
+     * @example
+     * // Update many Categories
+     * const category = await prisma.category.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, CategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Category.
+     * @param {CategoryUpsertArgs} args - Arguments to update or create a Category.
+     * @example
+     * // Update or create a Category
+     * const category = await prisma.category.upsert({
+     *   create: {
+     *     // ... data to create a Category
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Category we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CategoryUpsertArgs>(args: SelectSubset<T, CategoryUpsertArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryCountArgs} args - Arguments to filter Categories to count.
+     * @example
+     * // Count the number of Categories
+     * const count = await prisma.category.count({
+     *   where: {
+     *     // ... the filter for the Categories we want to count
+     *   }
+     * })
+    **/
+    count<T extends CategoryCountArgs>(
+      args?: Subset<T, CategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoryAggregateArgs>(args: Subset<T, CategoryAggregateArgs>): Prisma.PrismaPromise<GetCategoryAggregateType<T>>
+
+    /**
+     * Group by Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CategoryGroupByArgs['orderBy'] }
+        : { orderBy?: CategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Category model
+   */
+  readonly fields: CategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Category.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    recipes<T extends Category$recipesArgs<ExtArgs> = {}>(args?: Subset<T, Category$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Category model
+   */ 
+  interface CategoryFieldRefs {
+    readonly id: FieldRef<"Category", 'Int'>
+    readonly name: FieldRef<"Category", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Category findUnique
+   */
+  export type CategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findUniqueOrThrow
+   */
+  export type CategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findFirst
+   */
+  export type CategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findFirstOrThrow
+   */
+  export type CategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findMany
+   */
+  export type CategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Categories to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category create
+   */
+  export type CategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Category.
+     */
+    data: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
+  }
+
+  /**
+   * Category createMany
+   */
+  export type CategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Categories.
+     */
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
+  }
+
+  /**
+   * Category createManyAndReturn
+   */
+  export type CategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many Categories.
+     */
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
+  }
+
+  /**
+   * Category update
+   */
+  export type CategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Category.
+     */
+    data: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
+    /**
+     * Choose, which Category to update.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category updateMany
+   */
+  export type CategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Categories.
+     */
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Categories to update
+     */
+    where?: CategoryWhereInput
+  }
+
+  /**
+   * Category updateManyAndReturn
+   */
+  export type CategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update Categories.
+     */
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Categories to update
+     */
+    where?: CategoryWhereInput
+  }
+
+  /**
+   * Category upsert
+   */
+  export type CategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Category to update in case it exists.
+     */
+    where: CategoryWhereUniqueInput
+    /**
+     * In case the Category found by the `where` argument doesn't exist, create a new Category with this data.
+     */
+    create: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
+    /**
+     * In case the Category was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * Category delete
+   */
+  export type CategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter which Category to delete.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category deleteMany
+   */
+  export type CategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Categories to delete
+     */
+    where?: CategoryWhereInput
+  }
+
+  /**
+   * Category.recipes
+   */
+  export type Category$recipesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recipe
+     */
+    select?: RecipeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recipe
+     */
+    omit?: RecipeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecipeInclude<ExtArgs> | null
+    where?: RecipeWhereInput
+    orderBy?: RecipeOrderByWithRelationInput | RecipeOrderByWithRelationInput[]
+    cursor?: RecipeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecipeScalarFieldEnum | RecipeScalarFieldEnum[]
+  }
+
+  /**
+   * Category without action
+   */
+  export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6889,7 +8087,8 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
-    name: 'name'
+    name: 'name',
+    image: 'image'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6901,6 +8100,7 @@ export namespace Prisma {
     description: 'description',
     image: 'image',
     userId: 'userId',
+    categoryId: 'categoryId',
     prepTime: 'prepTime',
     private: 'private'
   };
@@ -6933,11 +8133,18 @@ export namespace Prisma {
     userId: 'userId',
     recipeId: 'recipeId',
     stars: 'stars',
-    liked: 'liked',
-    saved: 'saved'
+    liked: 'liked'
   };
 
   export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
+
+
+  export const CategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7007,6 +8214,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
+    image?: StringNullableFilter<"User"> | string | null
     recipes?: RecipeListRelationFilter
     ratings?: RatingListRelationFilter
   }
@@ -7016,6 +8224,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     recipes?: RecipeOrderByRelationAggregateInput
     ratings?: RatingOrderByRelationAggregateInput
   }
@@ -7028,6 +8237,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
+    image?: StringNullableFilter<"User"> | string | null
     recipes?: RecipeListRelationFilter
     ratings?: RatingListRelationFilter
   }, "id" | "email">
@@ -7037,6 +8247,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -7052,6 +8263,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    image?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type RecipeWhereInput = {
@@ -7063,12 +8275,14 @@ export namespace Prisma {
     description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    categoryId?: IntFilter<"Recipe"> | number
     prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
     ingredients?: IngredientListRelationFilter
     instructions?: InstructionListRelationFilter
     ratings?: RatingListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
 
   export type RecipeOrderByWithRelationInput = {
@@ -7077,12 +8291,14 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
     private?: SortOrder
     ingredients?: IngredientOrderByRelationAggregateInput
     instructions?: InstructionOrderByRelationAggregateInput
     ratings?: RatingOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    category?: CategoryOrderByWithRelationInput
   }
 
   export type RecipeWhereUniqueInput = Prisma.AtLeast<{
@@ -7095,12 +8311,14 @@ export namespace Prisma {
     description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    categoryId?: IntFilter<"Recipe"> | number
     prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
     ingredients?: IngredientListRelationFilter
     instructions?: InstructionListRelationFilter
     ratings?: RatingListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id" | "title_userId">
 
   export type RecipeOrderByWithAggregationInput = {
@@ -7109,6 +8327,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
     private?: SortOrder
     _count?: RecipeCountOrderByAggregateInput
@@ -7127,6 +8346,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Recipe"> | string | null
     image?: StringNullableWithAggregatesFilter<"Recipe"> | string | null
     userId?: IntWithAggregatesFilter<"Recipe"> | number
+    categoryId?: IntWithAggregatesFilter<"Recipe"> | number
     prepTime?: IntWithAggregatesFilter<"Recipe"> | number
     private?: BoolWithAggregatesFilter<"Recipe"> | boolean
   }
@@ -7249,7 +8469,6 @@ export namespace Prisma {
     recipeId?: IntFilter<"Rating"> | number
     stars?: IntFilter<"Rating"> | number
     liked?: BoolFilter<"Rating"> | boolean
-    saved?: BoolFilter<"Rating"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
   }
@@ -7259,7 +8478,6 @@ export namespace Prisma {
     recipeId?: SortOrder
     stars?: SortOrder
     liked?: SortOrder
-    saved?: SortOrder
     user?: UserOrderByWithRelationInput
     recipe?: RecipeOrderByWithRelationInput
   }
@@ -7273,7 +8491,6 @@ export namespace Prisma {
     recipeId?: IntFilter<"Rating"> | number
     stars?: IntFilter<"Rating"> | number
     liked?: BoolFilter<"Rating"> | boolean
-    saved?: BoolFilter<"Rating"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipe?: XOR<RecipeScalarRelationFilter, RecipeWhereInput>
   }, "userId_recipeId">
@@ -7283,7 +8500,6 @@ export namespace Prisma {
     recipeId?: SortOrder
     stars?: SortOrder
     liked?: SortOrder
-    saved?: SortOrder
     _count?: RatingCountOrderByAggregateInput
     _avg?: RatingAvgOrderByAggregateInput
     _max?: RatingMaxOrderByAggregateInput
@@ -7299,13 +8515,55 @@ export namespace Prisma {
     recipeId?: IntWithAggregatesFilter<"Rating"> | number
     stars?: IntWithAggregatesFilter<"Rating"> | number
     liked?: BoolWithAggregatesFilter<"Rating"> | boolean
-    saved?: BoolWithAggregatesFilter<"Rating"> | boolean
+  }
+
+  export type CategoryWhereInput = {
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    id?: IntFilter<"Category"> | number
+    name?: StringFilter<"Category"> | string
+    recipes?: RecipeListRelationFilter
+  }
+
+  export type CategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    recipes?: RecipeOrderByRelationAggregateInput
+  }
+
+  export type CategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    name?: string
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    recipes?: RecipeListRelationFilter
+  }, "id" | "name">
+
+  export type CategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: CategoryCountOrderByAggregateInput
+    _avg?: CategoryAvgOrderByAggregateInput
+    _max?: CategoryMaxOrderByAggregateInput
+    _min?: CategoryMinOrderByAggregateInput
+    _sum?: CategorySumOrderByAggregateInput
+  }
+
+  export type CategoryScalarWhereWithAggregatesInput = {
+    AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    OR?: CategoryScalarWhereWithAggregatesInput[]
+    NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Category"> | number
+    name?: StringWithAggregatesFilter<"Category"> | string
   }
 
   export type UserCreateInput = {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     recipes?: RecipeCreateNestedManyWithoutUserInput
     ratings?: RatingCreateNestedManyWithoutUserInput
   }
@@ -7315,6 +8573,7 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
     ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
@@ -7323,6 +8582,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUpdateManyWithoutUserNestedInput
     ratings?: RatingUpdateManyWithoutUserNestedInput
   }
@@ -7332,6 +8592,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -7341,12 +8602,14 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7354,6 +8617,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RecipeCreateInput = {
@@ -7366,6 +8630,7 @@ export namespace Prisma {
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
     ratings?: RatingCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipesInput
+    category: CategoryCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateInput = {
@@ -7374,6 +8639,7 @@ export namespace Prisma {
     description?: string | null
     image?: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
@@ -7391,6 +8657,7 @@ export namespace Prisma {
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
     ratings?: RatingUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateInput = {
@@ -7399,6 +8666,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
@@ -7412,6 +8680,7 @@ export namespace Prisma {
     description?: string | null
     image?: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private?: boolean
   }
@@ -7430,6 +8699,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -7534,7 +8804,6 @@ export namespace Prisma {
   export type RatingCreateInput = {
     stars?: number
     liked?: boolean
-    saved?: boolean
     user: UserCreateNestedOneWithoutRatingsInput
     recipe: RecipeCreateNestedOneWithoutRatingsInput
   }
@@ -7544,13 +8813,11 @@ export namespace Prisma {
     recipeId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type RatingUpdateInput = {
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutRatingsNestedInput
     recipe?: RecipeUpdateOneRequiredWithoutRatingsNestedInput
   }
@@ -7560,7 +8827,6 @@ export namespace Prisma {
     recipeId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RatingCreateManyInput = {
@@ -7568,13 +8834,11 @@ export namespace Prisma {
     recipeId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type RatingUpdateManyMutationInput = {
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RatingUncheckedUpdateManyInput = {
@@ -7582,7 +8846,42 @@ export namespace Prisma {
     recipeId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CategoryCreateInput = {
+    name: string
+    recipes?: RecipeCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateInput = {
+    id?: number
+    name: string
+    recipes?: RecipeUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    recipes?: RecipeUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    recipes?: RecipeUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryCreateManyInput = {
+    id?: number
+    name: string
+  }
+
+  export type CategoryUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7654,6 +8953,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    image?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -7665,6 +8965,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    image?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7672,6 +8973,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    image?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -7750,6 +9052,11 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
+  }
+
   export type IngredientOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -7769,6 +9076,7 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
     private?: SortOrder
   }
@@ -7776,6 +9084,7 @@ export namespace Prisma {
   export type RecipeAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
   }
 
@@ -7785,6 +9094,7 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
     private?: SortOrder
   }
@@ -7795,6 +9105,7 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
     private?: SortOrder
   }
@@ -7802,6 +9113,7 @@ export namespace Prisma {
   export type RecipeSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    categoryId?: SortOrder
     prepTime?: SortOrder
   }
 
@@ -7929,7 +9241,6 @@ export namespace Prisma {
     recipeId?: SortOrder
     stars?: SortOrder
     liked?: SortOrder
-    saved?: SortOrder
   }
 
   export type RatingAvgOrderByAggregateInput = {
@@ -7943,7 +9254,6 @@ export namespace Prisma {
     recipeId?: SortOrder
     stars?: SortOrder
     liked?: SortOrder
-    saved?: SortOrder
   }
 
   export type RatingMinOrderByAggregateInput = {
@@ -7951,13 +9261,35 @@ export namespace Prisma {
     recipeId?: SortOrder
     stars?: SortOrder
     liked?: SortOrder
-    saved?: SortOrder
   }
 
   export type RatingSumOrderByAggregateInput = {
     userId?: SortOrder
     recipeId?: SortOrder
     stars?: SortOrder
+  }
+
+  export type CategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type CategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategorySumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type RecipeCreateNestedManyWithoutUserInput = {
@@ -8087,6 +9419,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type CategoryCreateNestedOneWithoutRecipesInput = {
+    create?: XOR<CategoryCreateWithoutRecipesInput, CategoryUncheckedCreateWithoutRecipesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutRecipesInput
+    connect?: CategoryWhereUniqueInput
+  }
+
   export type IngredientUncheckedCreateNestedManyWithoutRecipeInput = {
     create?: XOR<IngredientCreateWithoutRecipeInput, IngredientUncheckedCreateWithoutRecipeInput> | IngredientCreateWithoutRecipeInput[] | IngredientUncheckedCreateWithoutRecipeInput[]
     connectOrCreate?: IngredientCreateOrConnectWithoutRecipeInput | IngredientCreateOrConnectWithoutRecipeInput[]
@@ -8160,6 +9498,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutRecipesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecipesInput, UserUpdateWithoutRecipesInput>, UserUncheckedUpdateWithoutRecipesInput>
+  }
+
+  export type CategoryUpdateOneRequiredWithoutRecipesNestedInput = {
+    create?: XOR<CategoryCreateWithoutRecipesInput, CategoryUncheckedCreateWithoutRecipesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutRecipesInput
+    upsert?: CategoryUpsertWithoutRecipesInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutRecipesInput, CategoryUpdateWithoutRecipesInput>, CategoryUncheckedUpdateWithoutRecipesInput>
   }
 
   export type IngredientUncheckedUpdateManyWithoutRecipeNestedInput = {
@@ -8266,6 +9612,48 @@ export namespace Prisma {
     upsert?: RecipeUpsertWithoutRatingsInput
     connect?: RecipeWhereUniqueInput
     update?: XOR<XOR<RecipeUpdateToOneWithWhereWithoutRatingsInput, RecipeUpdateWithoutRatingsInput>, RecipeUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type RecipeCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput> | RecipeCreateWithoutCategoryInput[] | RecipeUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RecipeCreateOrConnectWithoutCategoryInput | RecipeCreateOrConnectWithoutCategoryInput[]
+    createMany?: RecipeCreateManyCategoryInputEnvelope
+    connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+  }
+
+  export type RecipeUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput> | RecipeCreateWithoutCategoryInput[] | RecipeUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RecipeCreateOrConnectWithoutCategoryInput | RecipeCreateOrConnectWithoutCategoryInput[]
+    createMany?: RecipeCreateManyCategoryInputEnvelope
+    connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+  }
+
+  export type RecipeUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput> | RecipeCreateWithoutCategoryInput[] | RecipeUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RecipeCreateOrConnectWithoutCategoryInput | RecipeCreateOrConnectWithoutCategoryInput[]
+    upsert?: RecipeUpsertWithWhereUniqueWithoutCategoryInput | RecipeUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: RecipeCreateManyCategoryInputEnvelope
+    set?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    disconnect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    delete?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    update?: RecipeUpdateWithWhereUniqueWithoutCategoryInput | RecipeUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: RecipeUpdateManyWithWhereWithoutCategoryInput | RecipeUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: RecipeScalarWhereInput | RecipeScalarWhereInput[]
+  }
+
+  export type RecipeUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput> | RecipeCreateWithoutCategoryInput[] | RecipeUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RecipeCreateOrConnectWithoutCategoryInput | RecipeCreateOrConnectWithoutCategoryInput[]
+    upsert?: RecipeUpsertWithWhereUniqueWithoutCategoryInput | RecipeUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: RecipeCreateManyCategoryInputEnvelope
+    set?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    disconnect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    delete?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    connect?: RecipeWhereUniqueInput | RecipeWhereUniqueInput[]
+    update?: RecipeUpdateWithWhereUniqueWithoutCategoryInput | RecipeUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: RecipeUpdateManyWithWhereWithoutCategoryInput | RecipeUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: RecipeScalarWhereInput | RecipeScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8428,6 +9816,7 @@ export namespace Prisma {
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
     ratings?: RatingCreateNestedManyWithoutRecipeInput
+    category: CategoryCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutUserInput = {
@@ -8435,6 +9824,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     image?: string | null
+    categoryId: number
     prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
@@ -8454,7 +9844,6 @@ export namespace Prisma {
   export type RatingCreateWithoutUserInput = {
     stars?: number
     liked?: boolean
-    saved?: boolean
     recipe: RecipeCreateNestedOneWithoutRatingsInput
   }
 
@@ -8462,7 +9851,6 @@ export namespace Prisma {
     recipeId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type RatingCreateOrConnectWithoutUserInput = {
@@ -8499,6 +9887,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Recipe"> | string | null
     image?: StringNullableFilter<"Recipe"> | string | null
     userId?: IntFilter<"Recipe"> | number
+    categoryId?: IntFilter<"Recipe"> | number
     prepTime?: IntFilter<"Recipe"> | number
     private?: BoolFilter<"Recipe"> | boolean
   }
@@ -8527,7 +9916,6 @@ export namespace Prisma {
     recipeId?: IntFilter<"Rating"> | number
     stars?: IntFilter<"Rating"> | number
     liked?: BoolFilter<"Rating"> | boolean
-    saved?: BoolFilter<"Rating"> | boolean
   }
 
   export type IngredientCreateWithoutRecipeInput = {
@@ -8575,7 +9963,6 @@ export namespace Prisma {
   export type RatingCreateWithoutRecipeInput = {
     stars?: number
     liked?: boolean
-    saved?: boolean
     user: UserCreateNestedOneWithoutRatingsInput
   }
 
@@ -8583,7 +9970,6 @@ export namespace Prisma {
     userId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type RatingCreateOrConnectWithoutRecipeInput = {
@@ -8599,6 +9985,7 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
@@ -8607,12 +9994,27 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecipesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutRecipesInput, UserUncheckedCreateWithoutRecipesInput>
+  }
+
+  export type CategoryCreateWithoutRecipesInput = {
+    name: string
+  }
+
+  export type CategoryUncheckedCreateWithoutRecipesInput = {
+    id?: number
+    name: string
+  }
+
+  export type CategoryCreateOrConnectWithoutRecipesInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutRecipesInput, CategoryUncheckedCreateWithoutRecipesInput>
   }
 
   export type IngredientUpsertWithWhereUniqueWithoutRecipeInput = {
@@ -8699,6 +10101,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
@@ -8707,7 +10110,28 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CategoryUpsertWithoutRecipesInput = {
+    update: XOR<CategoryUpdateWithoutRecipesInput, CategoryUncheckedUpdateWithoutRecipesInput>
+    create: XOR<CategoryCreateWithoutRecipesInput, CategoryUncheckedCreateWithoutRecipesInput>
+    where?: CategoryWhereInput
+  }
+
+  export type CategoryUpdateToOneWithWhereWithoutRecipesInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutRecipesInput, CategoryUncheckedUpdateWithoutRecipesInput>
+  }
+
+  export type CategoryUpdateWithoutRecipesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateWithoutRecipesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type RecipeCreateWithoutIngredientsInput = {
@@ -8719,6 +10143,7 @@ export namespace Prisma {
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
     ratings?: RatingCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipesInput
+    category: CategoryCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutIngredientsInput = {
@@ -8727,6 +10152,7 @@ export namespace Prisma {
     description?: string | null
     image?: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private?: boolean
     instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
@@ -8758,6 +10184,7 @@ export namespace Prisma {
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
     ratings?: RatingUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutIngredientsInput = {
@@ -8766,6 +10193,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
@@ -8781,6 +10209,7 @@ export namespace Prisma {
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
     ratings?: RatingCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipesInput
+    category: CategoryCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutInstructionsInput = {
@@ -8789,6 +10218,7 @@ export namespace Prisma {
     description?: string | null
     image?: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
@@ -8820,6 +10250,7 @@ export namespace Prisma {
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
     ratings?: RatingUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutInstructionsInput = {
@@ -8828,6 +10259,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
@@ -8838,6 +10270,7 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     recipes?: RecipeCreateNestedManyWithoutUserInput
   }
 
@@ -8846,6 +10279,7 @@ export namespace Prisma {
     email: string
     password: string
     name?: string | null
+    image?: string | null
     recipes?: RecipeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8863,6 +10297,7 @@ export namespace Prisma {
     ingredients?: IngredientCreateNestedManyWithoutRecipeInput
     instructions?: InstructionCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipesInput
+    category: CategoryCreateNestedOneWithoutRecipesInput
   }
 
   export type RecipeUncheckedCreateWithoutRatingsInput = {
@@ -8871,6 +10306,7 @@ export namespace Prisma {
     description?: string | null
     image?: string | null
     userId: number
+    categoryId: number
     prepTime: number
     private?: boolean
     ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
@@ -8897,6 +10333,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUpdateManyWithoutUserNestedInput
   }
 
@@ -8905,6 +10342,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     recipes?: RecipeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8928,6 +10366,7 @@ export namespace Prisma {
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutRatingsInput = {
@@ -8936,10 +10375,61 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
+  }
+
+  export type RecipeCreateWithoutCategoryInput = {
+    title: string
+    description?: string | null
+    image?: string | null
+    prepTime: number
+    private?: boolean
+    ingredients?: IngredientCreateNestedManyWithoutRecipeInput
+    instructions?: InstructionCreateNestedManyWithoutRecipeInput
+    ratings?: RatingCreateNestedManyWithoutRecipeInput
+    user: UserCreateNestedOneWithoutRecipesInput
+  }
+
+  export type RecipeUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    title: string
+    description?: string | null
+    image?: string | null
+    userId: number
+    prepTime: number
+    private?: boolean
+    ingredients?: IngredientUncheckedCreateNestedManyWithoutRecipeInput
+    instructions?: InstructionUncheckedCreateNestedManyWithoutRecipeInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutRecipeInput
+  }
+
+  export type RecipeCreateOrConnectWithoutCategoryInput = {
+    where: RecipeWhereUniqueInput
+    create: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type RecipeCreateManyCategoryInputEnvelope = {
+    data: RecipeCreateManyCategoryInput | RecipeCreateManyCategoryInput[]
+  }
+
+  export type RecipeUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: RecipeWhereUniqueInput
+    update: XOR<RecipeUpdateWithoutCategoryInput, RecipeUncheckedUpdateWithoutCategoryInput>
+    create: XOR<RecipeCreateWithoutCategoryInput, RecipeUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type RecipeUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: RecipeWhereUniqueInput
+    data: XOR<RecipeUpdateWithoutCategoryInput, RecipeUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type RecipeUpdateManyWithWhereWithoutCategoryInput = {
+    where: RecipeScalarWhereInput
+    data: XOR<RecipeUpdateManyMutationInput, RecipeUncheckedUpdateManyWithoutCategoryInput>
   }
 
   export type RecipeCreateManyUserInput = {
@@ -8947,6 +10437,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     image?: string | null
+    categoryId: number
     prepTime: number
     private?: boolean
   }
@@ -8955,7 +10446,6 @@ export namespace Prisma {
     recipeId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type RecipeUpdateWithoutUserInput = {
@@ -8967,6 +10457,7 @@ export namespace Prisma {
     ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
     instructions?: InstructionUpdateManyWithoutRecipeNestedInput
     ratings?: RatingUpdateManyWithoutRecipeNestedInput
+    category?: CategoryUpdateOneRequiredWithoutRecipesNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutUserInput = {
@@ -8974,6 +10465,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
     ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
@@ -8986,6 +10478,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: IntFieldUpdateOperationsInput | number
     prepTime?: IntFieldUpdateOperationsInput | number
     private?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -8993,7 +10486,6 @@ export namespace Prisma {
   export type RatingUpdateWithoutUserInput = {
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
     recipe?: RecipeUpdateOneRequiredWithoutRatingsNestedInput
   }
 
@@ -9001,14 +10493,12 @@ export namespace Prisma {
     recipeId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RatingUncheckedUpdateManyWithoutUserInput = {
     recipeId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IngredientCreateManyRecipeInput = {
@@ -9028,7 +10518,6 @@ export namespace Prisma {
     userId: number
     stars?: number
     liked?: boolean
-    saved?: boolean
   }
 
   export type IngredientUpdateWithoutRecipeInput = {
@@ -9071,7 +10560,6 @@ export namespace Prisma {
   export type RatingUpdateWithoutRecipeInput = {
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutRatingsNestedInput
   }
 
@@ -9079,14 +10567,57 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RatingUncheckedUpdateManyWithoutRecipeInput = {
     userId?: IntFieldUpdateOperationsInput | number
     stars?: IntFieldUpdateOperationsInput | number
     liked?: BoolFieldUpdateOperationsInput | boolean
-    saved?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RecipeCreateManyCategoryInput = {
+    id?: number
+    title: string
+    description?: string | null
+    image?: string | null
+    userId: number
+    prepTime: number
+    private?: boolean
+  }
+
+  export type RecipeUpdateWithoutCategoryInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    prepTime?: IntFieldUpdateOperationsInput | number
+    private?: BoolFieldUpdateOperationsInput | boolean
+    ingredients?: IngredientUpdateManyWithoutRecipeNestedInput
+    instructions?: InstructionUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUpdateManyWithoutRecipeNestedInput
+    user?: UserUpdateOneRequiredWithoutRecipesNestedInput
+  }
+
+  export type RecipeUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
+    private?: BoolFieldUpdateOperationsInput | boolean
+    ingredients?: IngredientUncheckedUpdateManyWithoutRecipeNestedInput
+    instructions?: InstructionUncheckedUpdateManyWithoutRecipeNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  }
+
+  export type RecipeUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: IntFieldUpdateOperationsInput | number
+    prepTime?: IntFieldUpdateOperationsInput | number
+    private?: BoolFieldUpdateOperationsInput | boolean
   }
 
 
