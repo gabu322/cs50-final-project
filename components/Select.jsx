@@ -62,10 +62,10 @@ export default function Select({
    }, [isFocused]);
 
    useEffect(() => {
+      const selectedOption = options.find((option) => option.value === initialValue || option.selected);
       if (initialValue == '') {
          handleErase();
-      } else if (initialValue) {
-         const selectedOption = options.find((option) => option.value === initialValue);
+      } else if (selectedOption) {
          setValue(selectedOption ? selectedOption.text : '');
       }
    }, [initialValue]);
@@ -105,7 +105,7 @@ export default function Select({
    };
 
    return <div
-      className={`relative outline outline-offset-[-1px] ${rounded ? "rounded-full" : "rounded"} ${className} ${sizes.base} ${isFocused ? 'outline-2' : 'outline-1'} hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
+      className={`relative outline outline-offset-[-1px] shadow-sm hover:shadow ${rounded ? "rounded-full" : "rounded"} ${className} ${sizes.base} ${isFocused ? 'outline-2' : 'outline-1'} hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
       onMouseLeave={() => {
          setIsFocused(false);
          setInfoColor({ outline: '#d1d5db', text: '#9ca3af' });

@@ -154,7 +154,7 @@ export default function Input({
    }
 
    return <div
-      className={`flex flex-row gap-2 relative transition-all text-black box-border outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 shadow ${rounded ? "rounded-full px-4" : "rounded px-2"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
+      className={`flex flex-row gap-2 relative transition-all text-black box-border shadow-sm hover:shadow outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 ${rounded ? "rounded-full px-4" : "rounded px-2"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
       onFocus={() => setIsFocused(true)}
       onBlur={() => {
          setIsFocused(false);
