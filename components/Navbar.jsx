@@ -12,11 +12,11 @@ export default function Navbar() {
       console.log(session);
    }, [session]);
 
-   return <nav className="bg-orange-500 text-white py-4 px-10 fixed top-0 left-0 w-full z-10 flex flex-row justify-between items-center">
+   return <nav className="bg-orange-400 text-white py-4 px-10 fixed top-0 left-0 w-full z-10 flex flex-row justify-between items-center">
       <h2 className="text-2xl">CookBook</h2>
 
       <Select
-         className="w-1/2"
+         className="w-5/12"
          options={recipes}
          label="Select a recipe"
          placeholder="Select a recipe"
