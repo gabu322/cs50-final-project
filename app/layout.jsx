@@ -23,9 +23,10 @@ export default function RootLayout({ children }) {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
          }}
       >
-         <div className="absolute top-0 left-0 w-full h-full bg-[#fff8ef] opacity-[97%] -z-10" />
+         <div className="fixed top-0 left-0 w-full h-full bg-[#fff8ef] opacity-[97%] -z-10" />
          {children}
       </body>
    </html>;
