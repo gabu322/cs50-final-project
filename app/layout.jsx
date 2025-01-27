@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
          }}
       >
          <div className="fixed top-0 left-0 w-full h-full bg-[#fff8ef] opacity-[97%] -z-10" />
+
          {children}
       </body>
    </html>;
