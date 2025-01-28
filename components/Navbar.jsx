@@ -22,5 +22,7 @@ export default function Navbar() {
          placeholder="Select a recipe"
          rounded
       />
+
+      <div className="rounded-full bg-yellow-400 px-4 py-3">{session?.user.name}</div>
    </nav>;
 }
