@@ -5,11 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Button from "@/components/Button";
-import Image from "next/image";
-import Bookmark from "@/public/icons/bookmark";
-import Star from "@/public/icons/star";
-import Next from "@/public/icons/next";
-import Link from "next/link";
 import { Recipe } from "./Recipe";
 
 export default function Page() {
@@ -34,7 +29,7 @@ export default function Page() {
                bgColor={"bg-orange-400"}
                hoverColor={"hover:bg-orange-500"}
                text={"Create new recipe"}
-               href={"/create"}
+               href={"/recipe/create"}
                rounded
             />
          </div>
