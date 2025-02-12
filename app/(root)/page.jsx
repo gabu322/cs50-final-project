@@ -9,6 +9,7 @@ import Image from "next/image";
 import Bookmark from "@/public/icons/bookmark";
 import Star from "@/public/icons/star";
 import Next from "@/public/icons/next";
+import Link from "next/link";
 
 export default function Page() {
    const { data: session } = useSession();
@@ -77,8 +78,8 @@ export function Recipes({ recipe }) {
       </div>
 
       {/* Enter the recipe */}
-      <div className="absolute bottom-4 right-4">
+      <Link className="absolute bottom-4 right-4" href={`/recipe/${recipe.id}`}>
          <Next color={"black"} className="w-10" />
-      </div>
+      </Link>
    </div>
 }
