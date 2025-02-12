@@ -60,8 +60,8 @@ export default function Page({ }) {
 
          <Button
             type="submit"
-            bgColor={"bg-orange-300"}
-            hoverColor={"hover:bg-orange-400"}
+            bgColor={"bg-orange-400"}
+            hoverColor={"hover:bg-orange-500"}
             text={"Entrar"}
             rounded
          />
@@ -72,8 +72,8 @@ export default function Page({ }) {
          <Button
             className="w-full"
             text={"Cadastrar"}
-            bgColor={"bg-orange-300"}
-            hoverColor={"hover:bg-orange-400"}
+            bgColor={"bg-orange-400"}
+            hoverColor={"hover:bg-orange-500"}
             href={"/signup"}
             rounded
          />

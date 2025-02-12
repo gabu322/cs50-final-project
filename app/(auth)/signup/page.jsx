@@ -99,8 +99,8 @@ export default function Page({ }) {
             className="w-full"
             type="submit"
             text={"Sign Up"}
-            bgColor={"bg-orange-300"}
-            hoverColor={"hover:bg-orange-400"}
+            bgColor={"bg-orange-400"}
+            hoverColor={"hover:bg-orange-500"}
             rounded
          />
       </form>
