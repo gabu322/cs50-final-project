@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 export async function POST(req) {
    try {
       const userData = await req.json();
+      console.log(userData);
 
       // Check if the user already exists
       const existingUser = await prisma.user.findUnique({ where: { email: userData.email } });
